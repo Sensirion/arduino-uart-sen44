@@ -1,21 +1,14 @@
 # Sensirion UART SEN44 Arduino Library
 
-This is the Sensirion SEN44 library for Arduino using the
-modules UART interface.
-
-TODO: DRIVER_GENERATOR Add image of sensor / eval kit as images/sen44.jpg
-[<center><img src="images/sen44.jpg" width="300px"></center>](TODO: DRIVER_GENERATOR add url to the eval kit)
-
-Click [here](TODO: DRIVER_GENERATOR Add url to the eval kit) to learn more about the SEN44
-sensor and the SEN44 Evaluation Kit Board.
-
+This is the Sensirion SEN44 library for Arduino using the modules UART
+interface.
 
 # Installation
 
 To install, download the latest release as .zip file and add it to your
 [Arduino IDE](http://www.arduino.cc/en/main/software) via
 
-	Sketch => Include Library => Add .ZIP Library...
+    Sketch => Include Library => Add .ZIP Library...
 
 Don't forget to **install the dependencies** listed below the same way via `Add
 .ZIP Library`
@@ -28,26 +21,26 @@ Note: Installation via the Arduino Library Manager is coming soon.
 
 # Quick Start
 
-1. Connect the SEN44 Sensor to one of your Arduino board's
-   UART buses. We recommend using `Serial1`. Check the pinout of your Arduino TODO: DRIVER_GENERATOR Adjust serial port
-   board to find the correct pins. The pinout of the SEN44
-   Sensor board can be found in the data sheet.
+1. Connect the SEN44 Sensor to one of your Arduino board's UART buses. We
+   recommend using `Serial1`. Check the pinout of your Arduino board to find
+   the correct pins. The pinout of the SEN44 Sensor board can be found in the
+   data sheet.
 
-	* **VDD** of the SEK-SEN44 to the **xV** of your Arduino board TODO: DRIVER_GENERATOR Add correct voltage
-	* **GND** of the SEK-SEN44 to the **GND** of your Arduino board
-	* **RX** of the SEK-SEN44 to the **UART1-TX** of your Arduino board TODO: DRIVER_GENERATOR Adjust serial port
-	* **TX** of the SEK-SEN44 to the **UART1-RX** of your Arduino board TODO: DRIVER_GENERATOR Adjust serial port
+    * **VDD** of the SEK-SEN44 to the **5V** of your Arduino board
+    * **GND** of the SEK-SEN44 to the **GND** of your Arduino board
+    * **RX** of the SEK-SEN44 to the **UART1-TX** of your Arduino board
+    * **TX** of the SEK-SEN44 to the **UART1-RX** of your Arduino board
 
 2. Open the `exampleUsage` sample project within the Arduino IDE
 
-		File => Examples => Sensirion UART SEN44 => exampleUsage
+       File => Examples => Sensirion UART SEN44 => exampleUsage
 
 3. Depending on your Arduino board you may need to adapt the `#define
    SENSOR_SERIAL_INTERFACE` to choose the correct serial interface.
 
 4. Click the `Upload` button in the Arduino IDE or
 
-		Sketch => Upload
+       Sketch => Upload
 
 5. When the upload process has finished, open the `Serial Monitor` or `Serial
    Plotter` via the `Tools` menu to observe the measurement values. Note that
