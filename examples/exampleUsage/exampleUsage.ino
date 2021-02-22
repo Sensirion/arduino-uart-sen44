@@ -1,9 +1,4 @@
 /*
- * SHDLC-Generator: 0.8.2
- * Yaml Version: 0.1.0
- * Template Version: 0.6.0-5-g3f01745
- */
-/*
  * Copyright (c) 2021, Sensirion AG
  * All rights reserved.
  *
@@ -38,12 +33,9 @@
 #include <SensirionUartSen44.h>
 
 // Adjust as needed for you Arduino board
-#define SENSOR_SERIAL_INTERFACE \
-    Serial  // TODO: DRIVER_GENERATOR adjust to Serial1
+#define SENSOR_SERIAL_INTERFACE Serial1
 
 SensirionUartSen44 sen44;
-
-// TODO: DRIVER_GENERATOR Add missing commands and make prints more pretty
 
 void setup() {
     uint16_t error;
@@ -61,6 +53,13 @@ void setup() {
 
     sen44.begin(SENSOR_SERIAL_INTERFACE);
 
+    error = sen44.deviceReset();
+    if (error) {
+        Serial.print("Error trying to execute getSerialNumber(): ");
+        errorToString(error, errorMessage, 256);
+        Serial.println(errorMessage);
+    }
+
     unsigned char serialNumber[255];
     uint8_t serialNumberSize = 255;
 
@@ -71,7 +70,7 @@ void setup() {
         errorToString(error, errorMessage, 256);
         Serial.println(errorMessage);
     } else {
-        Serial.print("SerialNumber:");
+        Serial.print("Serial number: ");
         Serial.println((char*)serialNumber);
     }
 
@@ -92,25 +91,24 @@ void setup() {
         errorToString(error, errorMessage, 256);
         Serial.println(errorMessage);
     } else {
-        Serial.print("FirmwareMajor:");
+        if (firmwareDebug) {
+            printf("Development firmware version: ");
+        }
+        Serial.print("Firmware: ");
         Serial.print(firmwareMajor);
-        Serial.print("\t");
-        Serial.print("FirmwareMinor:");
+        Serial.print(".");
         Serial.print(firmwareMinor);
-        Serial.print("\t");
-        Serial.print("FirmwareDebug:");
-        Serial.print(firmwareDebug);
-        Serial.print("\t");
-        Serial.print("HardwareMajor:");
+        Serial.print(", ");
+
+        Serial.print("Hardware: ");
         Serial.print(hardwareMajor);
-        Serial.print("\t");
-        Serial.print("HardwareMinor:");
+        Serial.print(".");
         Serial.print(hardwareMinor);
-        Serial.print("\t");
-        Serial.print("ProtocolMajor:");
+        Serial.print(", ");
+
+        Serial.print("Protocol: ");
         Serial.print(protocolMajor);
-        Serial.print("\t");
-        Serial.print("ProtocolMinor:");
+        Serial.print(".");
         Serial.println(protocolMinor);
     }
 
@@ -129,12 +127,9 @@ void loop() {
     uint16_t error;
     char errorMessage[256];
 
-    // TODO: DRIVER_GENERATOR Adjust to correct measurement delay
     delay(1000);
-    // Read Measurement
-    // TODO: DRIVER_GENERATOR Add scaling and offset to printed measurement
-    // values
 
+    // Read Measurement
     uint16_t massConcentrationPm1p0;
     uint16_t massConcentrationPm2p5;
     uint16_t massConcentrationPm4p0;
@@ -166,12 +161,12 @@ void loop() {
         Serial.print(massConcentrationPm10p0);
         Serial.print("\t");
         Serial.print("VocIndex:");
-        Serial.print(vocIndex);
+        Serial.print(vocIndex / 10.0f);
         Serial.print("\t");
         Serial.print("AmbientHumidity:");
-        Serial.print(ambientHumidity);
+        Serial.print(ambientHumidity / 100.0f);
         Serial.print("\t");
         Serial.print("AmbientTemperature:");
-        Serial.println(ambientTemperature);
+        Serial.println(ambientTemperature / 200.0f);
     }
 }
