@@ -134,9 +134,9 @@ void loop() {
     uint16_t massConcentrationPm2p5;
     uint16_t massConcentrationPm4p0;
     uint16_t massConcentrationPm10p0;
-    int16_t vocIndex;
-    int16_t ambientHumidity;
-    int16_t ambientTemperature;
+    float vocIndex;
+    float ambientHumidity;
+    float ambientTemperature;
 
     error = sen44.readMeasuredMassConcentrationAndAmbientValues(
         massConcentrationPm1p0, massConcentrationPm2p5, massConcentrationPm4p0,
@@ -161,12 +161,12 @@ void loop() {
         Serial.print(massConcentrationPm10p0);
         Serial.print("\t");
         Serial.print("VocIndex:");
-        Serial.print(vocIndex / 10.0f);
+        Serial.print(vocIndex);
         Serial.print("\t");
         Serial.print("AmbientHumidity:");
-        Serial.print(ambientHumidity / 100.0f);
+        Serial.print(ambientHumidity);
         Serial.print("\t");
         Serial.print("AmbientTemperature:");
-        Serial.println(ambientTemperature / 200.0f);
+        Serial.println(ambientTemperature);
     }
 }

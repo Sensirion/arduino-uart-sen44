@@ -124,13 +124,13 @@ class SensirionUartSen44 {
         uint16_t& numberConcentrationPm10p0, uint16_t& typicalParticleSize);
 
     /**
-     * readMeasuredMassConcentrationAndAmbientValues() - Returns the measured
-     * mass concentration, VOC index and ambient temperature and humidity. The
-     * command 0x02 \"Read Data Ready\" can be used to check if new data is
-     * available since the last read operation. If no new data is available, the
-     * previous values will be returned again. If no data is available at all
-     * (no measurement running or immediately after starting the measurement),
-     * an error will be returned.
+     * readMeasuredMassConcentrationAndAmbientValuesTicks() - Returns the
+     * measured mass concentration, VOC index and ambient temperature and
+     * humidity. The command 0x02 \"Read Data Ready\" can be used to check if
+     * new data is available since the last read operation. If no new data is
+     * available, the previous values will be returned again. If no data is
+     * available at all (no measurement running or immediately after starting
+     * the measurement), an error will be returned.
      *
      * @note This command is only available in measure mode.
      *
@@ -152,19 +152,51 @@ class SensirionUartSen44 {
      *
      * @return 0 on success, an error code otherwise
      */
-    uint16_t readMeasuredMassConcentrationAndAmbientValues(
+    uint16_t readMeasuredMassConcentrationAndAmbientValuesTicks(
         uint16_t& massConcentrationPm1p0, uint16_t& massConcentrationPm2p5,
         uint16_t& massConcentrationPm4p0, uint16_t& massConcentrationPm10p0,
         int16_t& vocIndex, int16_t& ambientHumidity,
         int16_t& ambientTemperature);
 
     /**
-     * readMeasuredAmbientValues() - Returns the measured VOC index and ambient
-     * temperature and humidity. The command 0x02 \"Read Data Ready\" can be
-     * used to check if new data is available since the last read operation. If
-     * no new data is available, the previous values will be returned again. If
-     * no data is available at all (no measurement running or immediately after
-     * starting the  measurement), an error will be returned.
+     * readMeasuredMassConcentrationAndAmbientValues() - Returns the measured
+     * mass concentration, VOC index and ambient temperature and humidity. The
+     * command 0x02 \"Read Data Ready\" can be used to check if new data is
+     * available since the last read operation. If no new data is available, the
+     * previous values will be returned again. If no data is available at all
+     * (no measurement running or immediately after starting the measurement),
+     * an error will be returned.
+     *
+     * @note This command is only available in measure mode.
+     *
+     * @param massConcentrationPm1p0 Mass concentration PM1.0 [µg/m³].
+     *
+     * @param massConcentrationPm2p5 Mass concentration PM2.5 [µg/m³].
+     *
+     * @param massConcentrationPm4p0 Mass concentration PM4.0 [µg/m³].
+     *
+     * @param massConcentrationPm10p0 Mass concentration PM10.0 [µg/m³].
+     *
+     * @param vocIndex VOC index.
+     *
+     * @param ambientHumidity Compensated ambient relative humidity [%RH].
+     *
+     * @param ambientTemperature Compensated ambient temperature [°C].
+     *
+     * @return 0 on success, an error code otherwise
+     */
+    uint16_t readMeasuredMassConcentrationAndAmbientValues(
+        uint16_t& massConcentrationPm1p0, uint16_t& massConcentrationPm2p5,
+        uint16_t& massConcentrationPm4p0, uint16_t& massConcentrationPm10p0,
+        float& vocIndex, float& ambientHumidity, float& ambientTemperature);
+
+    /**
+     * readMeasuredAmbientValuesTicks() - Returns the measured VOC index and
+     * ambient temperature and humidity. The command 0x02 \"Read Data Ready\"
+     * can be used to check if new data is available since the last read
+     * operation. If no new data is available, the previous values will be
+     * returned again. If no data is available at all (no measurement running or
+     * immediately after starting the  measurement), an error will be returned.
      *
      * @note This command is only available in measure mode.
      *
@@ -178,9 +210,30 @@ class SensirionUartSen44 {
      *
      * @return 0 on success, an error code otherwise
      */
-    uint16_t readMeasuredAmbientValues(int16_t& vocIndex,
-                                       int16_t& ambientHumidity,
-                                       int16_t& ambientTemperature);
+    uint16_t readMeasuredAmbientValuesTicks(int16_t& vocIndex,
+                                            int16_t& ambientHumidity,
+                                            int16_t& ambientTemperature);
+
+    /**
+     * readMeasuredAmbientValues() - Returns the measured VOC index and ambient
+     * temperature and humidity. The command 0x02 \"Read Data Ready\" can be
+     * used to check if new data is available since the last read operation. If
+     * no new data is available, the previous values will be returned again. If
+     * no data is available at all (no measurement running or immediately after
+     * starting the  measurement), an error will be returned.
+     *
+     * @note This command is only available in measure mode.
+     *
+     * @param vocIndex VOC index.
+     *
+     * @param ambientHumidity Compensated ambient relative humidity [%RH].
+     *
+     * @param ambientTemperature Compensated ambient temperature [°C].
+     *
+     * @return 0 on success, an error code otherwise
+     */
+    uint16_t readMeasuredAmbientValues(float& vocIndex, float& ambientHumidity,
+                                       float& ambientTemperature);
 
     /**
      * startFanCleaning() - Starts the fan cleaning manually.

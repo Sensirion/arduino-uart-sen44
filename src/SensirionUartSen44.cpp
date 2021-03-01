@@ -145,7 +145,7 @@ uint16_t SensirionUartSen44::readMeasuredPmValues(
     return error;
 }
 
-uint16_t SensirionUartSen44::readMeasuredMassConcentrationAndAmbientValues(
+uint16_t SensirionUartSen44::readMeasuredMassConcentrationAndAmbientValuesTicks(
     uint16_t& massConcentrationPm1p0, uint16_t& massConcentrationPm2p5,
     uint16_t& massConcentrationPm4p0, uint16_t& massConcentrationPm10p0,
     int16_t& vocIndex, int16_t& ambientHumidity, int16_t& ambientTemperature) {
@@ -177,7 +177,30 @@ uint16_t SensirionUartSen44::readMeasuredMassConcentrationAndAmbientValues(
     return error;
 }
 
-uint16_t SensirionUartSen44::readMeasuredAmbientValues(
+uint16_t SensirionUartSen44::readMeasuredMassConcentrationAndAmbientValues(
+    uint16_t& massConcentrationPm1p0, uint16_t& massConcentrationPm2p5,
+    uint16_t& massConcentrationPm4p0, uint16_t& massConcentrationPm10p0,
+    float& vocIndex, float& ambientHumidity, float& ambientTemperature) {
+    uint16_t error;
+    int16_t vocIndexTicks;
+    int16_t ambientHumidityTicks;
+    int16_t ambientTemperatureTicks;
+
+    error = readMeasuredMassConcentrationAndAmbientValuesTicks(
+        massConcentrationPm1p0, massConcentrationPm2p5, massConcentrationPm4p0,
+        massConcentrationPm10p0, vocIndexTicks, ambientHumidityTicks,
+        ambientTemperatureTicks);
+    if (error) {
+        return error;
+    }
+
+    vocIndex = static_cast<float>(vocIndexTicks) / 10.0f;
+    ambientHumidity = static_cast<float>(ambientHumidityTicks) / 100.0f;
+    ambientTemperature = static_cast<float>(ambientTemperatureTicks) / 200.0f;
+    return NoError;
+}
+
+uint16_t SensirionUartSen44::readMeasuredAmbientValuesTicks(
     int16_t& vocIndex, int16_t& ambientHumidity, int16_t& ambientTemperature) {
     uint16_t error;
     uint8_t buffer[24];
@@ -201,6 +224,25 @@ uint16_t SensirionUartSen44::readMeasuredAmbientValues(
     error |= rxFrame.getInt16(ambientHumidity);
     error |= rxFrame.getInt16(ambientTemperature);
     return error;
+}
+
+uint16_t SensirionUartSen44::readMeasuredAmbientValues(
+    float& vocIndex, float& ambientHumidity, float& ambientTemperature) {
+    uint16_t error;
+    int16_t vocIndexTicks;
+    int16_t ambientHumidityTicks;
+    int16_t ambientTemperatureTicks;
+
+    error = readMeasuredAmbientValuesTicks(vocIndexTicks, ambientHumidityTicks,
+                                           ambientTemperatureTicks);
+    if (error) {
+        return error;
+    }
+
+    vocIndex = static_cast<float>(vocIndexTicks) / 10.0f;
+    ambientHumidity = static_cast<float>(ambientHumidityTicks) / 100.0f;
+    ambientTemperature = static_cast<float>(ambientTemperatureTicks) / 200.0f;
+    return NoError;
 }
 
 uint16_t SensirionUartSen44::startFanCleaning() {
