@@ -1,0 +1,36 @@
+#######################################
+# Syntax Coloring Map
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+SensirionUartSen44	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+startMeasurement	KEYWORD2
+stopMeasurement	KEYWORD2
+readDataReady	KEYWORD2
+readMeasuredPmValues	KEYWORD2
+readMeasuredMassConcentrationAndAmbientValues	KEYWORD2
+readMeasuredAmbientValues	KEYWORD2
+startFanCleaning	KEYWORD2
+setAutoCleaningInterval	KEYWORD2
+getAutoCleaningInterval	KEYWORD2
+getArticleCode	KEYWORD2
+getSerialNumber	KEYWORD2
+getVersion	KEYWORD2
+readDeviceStatus	KEYWORD2
+deviceReset	KEYWORD2
+#######################################
+# Instances (KEYWORD2)
+#######################################
+
+sen44	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
