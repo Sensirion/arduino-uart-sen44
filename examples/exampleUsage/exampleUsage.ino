@@ -32,8 +32,9 @@
 #include <Arduino.h>
 #include <SensirionUartSen44.h>
 
-// Adjust as needed for you Arduino board
-#define SENSOR_SERIAL_INTERFACE Serial1
+// Adjust as needed for you Arduino board.
+// [Serial, Serial1, Serial2, etc.]
+#define SENSOR_SERIAL_INTERFACE Serial
 
 SensirionUartSen44 sen44;
 
