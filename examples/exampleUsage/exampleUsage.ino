@@ -37,42 +37,9 @@
 
 SensirionUartSen44 sen44;
 
-void setup() {
+void printModuleVersions() {
     uint16_t error;
     char errorMessage[256];
-
-    Serial.begin(115200);
-    while (!Serial) {
-        delay(100);
-    }
-
-    SENSOR_SERIAL_INTERFACE.begin(115200);
-    while (!SENSOR_SERIAL_INTERFACE) {
-        delay(100);
-    }
-
-    sen44.begin(SENSOR_SERIAL_INTERFACE);
-
-    error = sen44.deviceReset();
-    if (error) {
-        Serial.print("Error trying to execute getSerialNumber(): ");
-        errorToString(error, errorMessage, 256);
-        Serial.println(errorMessage);
-    }
-
-    unsigned char serialNumber[255];
-    uint8_t serialNumberSize = 255;
-
-    error = sen44.getSerialNumber(serialNumber, serialNumberSize);
-
-    if (error) {
-        Serial.print("Error trying to execute getSerialNumber(): ");
-        errorToString(error, errorMessage, 256);
-        Serial.println(errorMessage);
-    } else {
-        Serial.print("Serial number: ");
-        Serial.println((char*)serialNumber);
-    }
 
     uint8_t firmwareMajor;
     uint8_t firmwareMinor;
@@ -111,9 +78,55 @@ void setup() {
         Serial.print(".");
         Serial.println(protocolMinor);
     }
+}
+
+void printSerialNumber() {
+    uint16_t error;
+    char errorMessage[256];
+
+    unsigned char serialNumber[32];
+    uint8_t serialNumberSize = 32;
+
+    error = sen44.getSerialNumber(serialNumber, serialNumberSize);
+
+    if (error) {
+        Serial.print("Error trying to execute getSerialNumber(): ");
+        errorToString(error, errorMessage, 256);
+        Serial.println(errorMessage);
+    } else {
+        Serial.print("Serial number: ");
+        Serial.println((char*)serialNumber);
+    }
+}
+
+void setup() {
+    uint16_t error;
+    char errorMessage[256];
+
+    Serial.begin(115200);
+    while (!Serial) {
+        delay(100);
+    }
+
+    SENSOR_SERIAL_INTERFACE.begin(115200);
+    while (!SENSOR_SERIAL_INTERFACE) {
+        delay(100);
+    }
+
+    sen44.begin(SENSOR_SERIAL_INTERFACE);
+
+    error = sen44.deviceReset();
+    if (error) {
+        Serial.print("Error trying to execute getSerialNumber(): ");
+        errorToString(error, errorMessage, 256);
+        Serial.println(errorMessage);
+    }
+
+    // Print SEN44 module information
+    printSerialNumber();
+    printModuleVersions();
 
     // Start Measurement
-
     error = sen44.startMeasurement();
 
     if (error) {

@@ -309,9 +309,9 @@ uint16_t SensirionUartSen44::getAutoCleaningInterval(uint32_t& interval) {
 uint16_t SensirionUartSen44::getArticleCode(unsigned char articleCode[],
                                             uint8_t articleCodeSize) {
     uint16_t error;
-    uint8_t buffer[522];
-    SensirionShdlcTxFrame txFrame(buffer, 522);
-    SensirionShdlcRxFrame rxFrame(buffer, 522);
+    uint8_t buffer[76];
+    SensirionShdlcTxFrame txFrame(buffer, 76);
+    SensirionShdlcRxFrame rxFrame(buffer, 76);
 
     error = txFrame.begin(0xD0, SEN44_UART_ADDRESS, 1);
     error |= txFrame.addUInt8(0x02);
@@ -333,9 +333,9 @@ uint16_t SensirionUartSen44::getArticleCode(unsigned char articleCode[],
 uint16_t SensirionUartSen44::getSerialNumber(unsigned char serialNumber[],
                                              uint8_t serialNumberSize) {
     uint16_t error;
-    uint8_t buffer[522];
-    SensirionShdlcTxFrame txFrame(buffer, 522);
-    SensirionShdlcRxFrame rxFrame(buffer, 522);
+    uint8_t buffer[76];
+    SensirionShdlcTxFrame txFrame(buffer, 76);
+    SensirionShdlcRxFrame rxFrame(buffer, 76);
 
     error = txFrame.begin(0xD0, SEN44_UART_ADDRESS, 1);
     error |= txFrame.addUInt8(0x03);
