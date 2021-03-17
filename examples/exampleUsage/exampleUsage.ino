@@ -34,7 +34,7 @@
 
 // Adjust as needed for you Arduino board.
 // [Serial, Serial1, Serial2, etc.]
-#define SENSOR_SERIAL_INTERFACE Serial
+#define SENSOR_SERIAL_INTERFACE Serial1
 
 SensirionUartSen44 sen44;
 
